@@ -1,6 +1,6 @@
 {
-  "name": "react-data-grid",
-  "version": "2.0.1",
+  "name": "react-data-grid-extended",
+  "version": "1.0.1",
   "description": "Data grid for React",
   "main": "src/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/adazzle/react-data-grid.git"
+    "url": "git://github.com/danielpetrov/react-data-grid.git"
   },
   "keywords": [
     "react",
