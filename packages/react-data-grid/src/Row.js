@@ -81,7 +81,7 @@ const Row = React.createClass({
   getCell(column, i, selectedColumn) {
     let CellRenderer = this.props.cellRenderer;
     const { colVisibleStart, colVisibleEnd, idx, cellMetaData } = this.props;
-    const { key, formatter, locked } = column;
+    const { key, formatter, locked, valueKey } = column;
     const baseCellProps = { key: `${key}-${idx}`, idx: i, rowIdx: idx, height: this.getRowHeight(), column, cellMetaData };
 
     if ((i < colVisibleStart || i > colVisibleEnd) && !locked) {
@@ -91,7 +91,7 @@ const Row = React.createClass({
     const { row, isSelected } = this.props;
     const cellProps = {
       ref: (node) => this[key] = node,
-      value: this.getCellValue(key || i),
+      value: this.getCellValue(key || i, valueKey),
       rowData: row,
       isRowSelected: isSelected,
       expandableOptions: this.getExpandableOptions(key),
@@ -136,14 +136,18 @@ const Row = React.createClass({
     return this.props.height;
   },
 
-  getCellValue(key) {
+  getCellValue(key, valueKey) {
     let val;
     if (key === 'select-row') {
       return this.props.isSelected;
     } else if (typeof this.props.row.get === 'function') {
       val = this.props.row.get(key);
     } else {
-      val = this.props.row[key];
+      if (valueKey !== undefined) {
+        val = this.props.row(valueKey);
+      } else {
+        val = this.props.row[key];
+      }
     }
     return val;
   },
