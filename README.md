@@ -3,7 +3,7 @@
 - optional generic or custom search component in headers // TODO
 - hocs for using selection, sorting and filtering out of the box // TODO
 - support for valueKey in columns // Done
-- add column and rowIdx props to custom cell formatter // Done
+- add idx, rowData, column and rowIdx props to custom cell formatter // Done
 
 Original libraly : http://adazzle.github.io/react-data-grid/ 
 

@@ -475,9 +475,11 @@ const Cell = React.createClass({
             value={this.props.value}
             column={this.props.column}
             rowIdx={this.props.rowIdx}
+            idx={this.props.idx}
+            rowData={this.props.rowData}
             dependentValues={this.getFormatterDependencies()}
           />
-      )
+      );
     } else {
       CellContent = <SimpleCellFormatter value={this.props.value} />;
     }
