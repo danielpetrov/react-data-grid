@@ -470,7 +470,14 @@ const Cell = React.createClass({
       props.dependentValues = this.getFormatterDependencies();
       CellContent = React.cloneElement(Formatter, props);
     } else if (isFunction(Formatter)) {
-      CellContent = <Formatter value={this.props.value} dependentValues={this.getFormatterDependencies()} />;
+      CellContent = (
+          <Formatter
+            value={this.props.value}
+            column={this.props.column}
+            rowIdx={this.props.rowIdx}
+            dependentValues={this.getFormatterDependencies()}
+          />
+      )
     } else {
       CellContent = <SimpleCellFormatter value={this.props.value} />;
     }
