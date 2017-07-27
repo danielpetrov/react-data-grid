@@ -1,8 +1,8 @@
 {
-  "name": "react-data-grid",
-  "version": "2.0.1",
+  "name": "react-data-grid-extended",
+  "version": "1.0.5",
   "description": "Data grid for React",
-  "main": "src/index.js",
+  "main": "packages/react-data-grid/dist/react-data-grid.js",
   "scripts": {
     "pretest": "npm run eslint",
     "test": "./node_modules/.bin/karma start ./config/karma.js --singleRun true --release true",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/adazzle/react-data-grid.git"
+    "url": "git://github.com/danielpetrov/react-data-grid.git"
   },
   "keywords": [
     "react",

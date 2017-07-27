@@ -1,7 +1,8 @@
 {
-  "name": "react-data-grid",
-  "version": "2.0.54",
-  "description": "The grid core",
+  "name": "react-data-grid-extended",
+  "version": "0.1.4",
+  "description": "The grid core... Extended",
+  "main": "dist/react-data-grid.js",
   "scripts": {
     "beforepublish": "node ../../ci/publish/replacePackageEntry react-data-grid true",
     "postpublish": "node ../../ci/publish/replacePackageEntry react-data-grid",
@@ -13,6 +14,6 @@
     "data-grid",
     "core"
   ],
-  "author": "Adazzle",
+  "author": "Daniel Petrov",
   "license": "MIT"
 }

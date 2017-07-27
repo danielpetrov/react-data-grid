@@ -1,7 +1,19 @@
 const getMixedTypeValueRetriever = (isImmutable) => {
   let retObj = {};
-  const retriever = (item, key) => { return item[key]; };
-  const immutableRetriever =  (immutable, key) => { return immutable.get(key); };
+  const retriever = (item, key, valueKey) => {
+    if (valueKey === undefined) {
+      return item[key];
+    }
+
+    return item[valueKey];
+  };
+  const immutableRetriever =  (immutable, key, valueKey) => {
+    if (valueKey === undefined) {
+      return immutable.get(key);
+    }
+
+    return immutable.get(valueKey);
+  };
 
   retObj.getValue = isImmutable ? immutableRetriever : retriever;
 

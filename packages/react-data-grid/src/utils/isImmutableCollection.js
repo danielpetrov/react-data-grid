@@ -1,7 +1,13 @@
-import { Iterable } from 'immutable';
+import { isImmutable, Iterable } from 'immutable';
 
-const isImmutableCollection = (objToVerify) => {
-  return Iterable.isIterable(objToVerify);
-};
+const isImmutableCollection = objToVerify => {
+  if (typeof isImmutable === 'function') {
+    return isImmutable(objToVerify)
+  } else if (typeof Iterable.isIterable === 'function') {
+    return Iterable.isIterable(objToVerify)
+  }
+
+  return false
+}
 
 module.exports = isImmutableCollection;
