@@ -942,6 +942,7 @@ const ReactDataGrid = createReactClass({
     let toolbar = this.renderToolbar();
     let containerWidth = this.props.minWidth || this.DOMMetrics.gridWidth();
     let gridWidth = containerWidth - this.state.scrollOffset;
+    const { gridName } = this.props;
 
     // depending on the current lifecycle stage, gridWidth() may not initialize correctly
     // this also handles cases where it always returns undefined -- such as when inside a div with display:none
@@ -953,7 +954,7 @@ const ReactDataGrid = createReactClass({
       gridWidth = '100%';
     }
     return (
-      <div className="react-grid-Container" style={{width: containerWidth}}>
+      <div className={`react-grid-Container ${gridName ? gridName : ''}`} style={{width: containerWidth}}>
         {toolbar}
         <div className="react-grid-Main">
           <BaseGrid
