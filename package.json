@@ -1,11 +1,11 @@
 {
   "name": "react-data-grid-extended",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Data grid for React",
   "main": "packages/react-data-grid/dist/react-data-grid.js",
   "scripts": {
     "pretest": "npm run eslint",
-    "test": "./node_modules/.bin/karma start ./config/karma.js --singleRun true --release true --max_old_space_size=4096",
+    "test": "./node_modules/.bin/karma start ./config/karma.js --singleRun true --release true",
     "dev-test": "./node_modules/.bin/karma start ./config/karma.dev.js --singleRun false --debug true",
     "postinstall": "lerna bootstrap",
     "build": "webpack --config ./config/webpack.config.prod.js --release true",
