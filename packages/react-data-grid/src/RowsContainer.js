@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const SimpleRowsContainer = (props) => {
   return (
-    <div key="rows-container" style={{width: props.width, height: '100%'}}>
+    <div key="rows-container" style={{width: props.width, minHeight: '100%'}}>
       {props.rows}
     </div>
   );
