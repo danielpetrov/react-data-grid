@@ -39,7 +39,8 @@ const Row = createReactClass({
     colVisibleEnd: PropTypes.number.isRequired,
     colDisplayStart: PropTypes.number.isRequired,
     colDisplayEnd: PropTypes.number.isRequired,
-    isScrolling: PropTypes.bool.isRequired
+    isScrolling: PropTypes.bool.isRequired,
+    isDisabled: PropTypes.bool.isRequired
   },
 
   mixins: [ColumnUtilsMixin],
@@ -202,6 +203,7 @@ const Row = createReactClass({
       `react-grid-Row--${this.props.idx % 2 === 0 ? 'even' : 'odd'}`,
       {
         'row-selected': this.props.isSelected,
+        'row-disabled': this.props.isDisabled,
         'row-context-menu': this.isContextMenuDisplayed()
       },
       this.props.extraClasses

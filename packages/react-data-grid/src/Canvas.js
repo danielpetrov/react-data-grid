@@ -12,6 +12,7 @@ require('../../../themes/react-data-grid-core.css');
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import RowsContainer from './RowsContainer';
 import RowGroup from './RowGroup';
+const isImmutable = require('./utils').isImmutableMap;
 
 const Canvas = createReactClass({
   displayName: 'Canvas',
@@ -64,7 +65,8 @@ const Canvas = createReactClass({
       })
     ]),
     rowGroupRenderer: PropTypes.func,
-    isScrolling: PropTypes.bool
+    isScrolling: PropTypes.bool,
+    disabledRowsKeys: PropTypes.array
   },
 
   getDefaultProps() {
@@ -212,6 +214,10 @@ const Canvas = createReactClass({
 
     return false;
   },
+  isRowDisabled(row) {
+    let rowIdx = isImmutable(row) ? row.get(this.props.rowKey) : row[this.props.rowKey];
+    return (this.props.disabledRowsKeys || []).indexOf(rowIdx) !== -1;
+  },
 
   _currentRowsLength: 0,
   _currentRowsRange: { start: 0, end: 0 },
@@ -298,7 +304,8 @@ const Canvas = createReactClass({
         colVisibleEnd: this.props.colVisibleEnd,
         colDisplayStart: this.props.colDisplayStart,
         colDisplayEnd: this.props.colDisplayEnd,
-        isScrolling: this.props.isScrolling
+        isScrolling: this.props.isScrolling,
+        isDisabled: this.isRowDisabled(r.row)
       }));
 
     this._currentRowsLength = rows.length;
