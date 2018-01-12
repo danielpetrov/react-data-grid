@@ -13,6 +13,7 @@ const RowUtils = require('./RowUtils');
 const ColumnUtils = require('./ColumnUtils');
 const KeyCodes = require('./KeyCodes');
 const isFunction = require('./utils/isFunction');
+import SelectAll from './formatters/SelectAll';
 import AppConstants from './AppConstants';
 require('../../../themes/react-data-grid-core.css');
 require('../../../themes/react-data-grid-checkbox.css');
@@ -123,7 +124,8 @@ const ReactDataGrid = createReactClass({
     onAddSubRow: PropTypes.func,
     enableCellAutoFocus: PropTypes.bool,
     onBeforeEdit: PropTypes.func,
-    disabledRowsKeys: PropTypes.array
+    disabledRowsKeys: PropTypes.array,
+    selectAllRenderer: PropTypes.object
   },
 
   getDefaultProps(): {enableCellSelect: boolean} {
@@ -986,11 +988,9 @@ const ReactDataGrid = createReactClass({
     let unshiftedCols = {};
     const checkBoxId = gridName ? `${gridName}-select-all-checkbox` : 'select-all-checkbox';
     if (this.props.rowActionsCell || (props.enableRowSelect && !this.props.rowSelection) || (props.rowSelection && props.rowSelection.showCheckbox !== false)) {
-      let headerRenderer = props.enableRowSelect === 'single' ? null :
-      <div className="react-grid-checkbox-container checkbox-align">
-        <input className="react-grid-checkbox" type="checkbox" name={checkBoxId} id={checkBoxId} ref={grid => this.selectAllCheckbox = grid} onChange={this.handleCheckboxChange} />
-        <label htmlFor={checkBoxId} className="react-grid-checkbox-label" />
-      </div>;
+      const SelectAllComponent = this.props.selectAllRenderer || SelectAll;
+      const SelectAllRenderer = <SelectAllComponent checkBoxId={checkBoxId} onChange={this.handleCheckboxChange} inputRef={grid => this.selectAllCheckbox = grid} />;
+      let headerRenderer = props.enableRowSelect === 'single' ? null : SelectAllRenderer;
       let Formatter = this.props.rowActionsCell ? this.props.rowActionsCell : CheckboxEditor;
       let selectColumn = {
         key: 'select-row',
