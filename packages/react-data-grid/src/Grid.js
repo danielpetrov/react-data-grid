@@ -62,7 +62,8 @@ const Grid = createReactClass({
     getValidFilterValues: PropTypes.func,
     rowGroupRenderer: PropTypes.func,
     overScan: PropTypes.object,
-    disabledRowsKeys: PropTypes.array
+    disabledRowsKeys: PropTypes.array,
+    isGridMounted: PropTypes.bool
   },
 
   mixins: [
@@ -144,7 +145,7 @@ const Grid = createReactClass({
                   rowGroupRenderer={this.props.rowGroupRenderer}
                   overScan={this.props.overScan}
                   disabledRowsKeys={this.props.disabledRowsKeys}
-                />
+                  isGridMounted={this.props.isGridMounted} />
             </div>
         :
             <div ref={(node) => { this.emptyView = node; } } className="react-grid-Empty">

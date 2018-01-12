@@ -66,7 +66,8 @@ const Canvas = createReactClass({
     ]),
     rowGroupRenderer: PropTypes.func,
     isScrolling: PropTypes.bool,
-    disabledRowsKeys: PropTypes.array
+    disabledRowsKeys: PropTypes.array,
+    isGridMounted: PropTypes.bool
   },
 
   getDefaultProps() {
@@ -284,42 +285,44 @@ const Canvas = createReactClass({
 
   render() {
     const { displayStart, displayEnd } = this.state;
-    const { rowHeight, rowsCount } = this.props;
+    const { rowHeight, rowsCount, isGridMounted } = this.props;
+    let rows = [];
 
-    let rows = this.getRows(displayStart, displayEnd)
-      .map((r, idx) => this.renderRow({
-        key: `row-${displayStart + idx}`,
-        ref: (node) => this.rows[idx] = node,
-        idx: displayStart + idx,
-        visibleStart: this.props.visibleStart,
-        visibleEnd: this.props.visibleEnd,
-        row: r.row,
-        height: rowHeight,
-        onMouseOver: this.onMouseOver,
-        columns: this.props.columns,
-        isSelected: this.isRowSelected(displayStart + idx, r.row, displayStart, displayEnd),
-        expandedRows: this.props.expandedRows,
-        cellMetaData: this.props.cellMetaData,
-        subRowDetails: r.subRowDetails,
-        colVisibleStart: this.props.colVisibleStart,
-        colVisibleEnd: this.props.colVisibleEnd,
-        colDisplayStart: this.props.colDisplayStart,
-        colDisplayEnd: this.props.colDisplayEnd,
-        isScrolling: this.props.isScrolling,
-        isDisabled: this.isRowDisabled(r.row)
-      }));
+    if (isGridMounted) {
+      rows = this.getRows(displayStart, displayEnd)
+          .map((r, idx) => this.renderRow({
+            key: `row-${displayStart + idx}`,
+            ref: (node) => this.rows[idx] = node,
+            idx: displayStart + idx,
+            visibleStart: this.props.visibleStart,
+            visibleEnd: this.props.visibleEnd,
+            row: r.row,
+            height: rowHeight,
+            onMouseOver: this.onMouseOver,
+            columns: this.props.columns,
+            isSelected: this.isRowSelected(displayStart + idx, r.row, displayStart, displayEnd),
+            expandedRows: this.props.expandedRows,
+            cellMetaData: this.props.cellMetaData,
+            subRowDetails: r.subRowDetails,
+            colVisibleStart: this.props.colVisibleStart,
+            colVisibleEnd: this.props.colVisibleEnd,
+            colDisplayStart: this.props.colDisplayStart,
+            colDisplayEnd: this.props.colDisplayEnd,
+            isScrolling: this.props.isScrolling,
+            isDisabled: this.isRowDisabled(r.row)
+          }));
 
-    this._currentRowsLength = rows.length;
+      this._currentRowsLength = rows.length;
 
-    if (displayStart > 0) {
-      rows.unshift(this.renderPlaceholder('top', displayStart * rowHeight));
+      if (displayStart > 0) {
+        rows.unshift(this.renderPlaceholder('top', displayStart * rowHeight));
+      }
+
+      if (rowsCount - displayEnd > 0) {
+        rows.push(
+            this.renderPlaceholder('bottom', (rowsCount - displayEnd) * rowHeight));
+      }
     }
-
-    if (rowsCount - displayEnd > 0) {
-      rows.push(
-        this.renderPlaceholder('bottom', (rowsCount - displayEnd) * rowHeight));
-    }
-
     let style = {
       position: 'absolute',
       top: 0,
@@ -336,12 +339,12 @@ const Canvas = createReactClass({
         style={style}
         onScroll={this.onScroll}
         className={joinClasses('react-grid-Canvas', this.props.className, { opaque: this.props.cellMetaData.selected && this.props.cellMetaData.selected.active }) }>
-        <RowsContainer
+        {isGridMounted && <RowsContainer
           width={this.props.width}
           rows={rows}
           contextMenu={this.props.contextMenu}
           rowIdx={this.props.cellMetaData.selected.rowIdx}
-          idx={this.props.cellMetaData.selected.idx} />
+          idx={this.props.cellMetaData.selected.idx} />}
       </div>
     );
   }
