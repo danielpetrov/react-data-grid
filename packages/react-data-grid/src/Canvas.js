@@ -13,6 +13,7 @@ import shallowEqual from 'fbjs/lib/shallowEqual';
 import RowsContainer from './RowsContainer';
 import RowGroup from './RowGroup';
 const isImmutable = require('./utils').isImmutableMap;
+const { throttleEventHandler } = require('./utils/eventHocs');
 
 const Canvas = createReactClass({
   displayName: 'Canvas',
@@ -67,7 +68,8 @@ const Canvas = createReactClass({
     rowGroupRenderer: PropTypes.func,
     isScrolling: PropTypes.bool,
     disabledRowsKeys: PropTypes.array,
-    isGridMounted: PropTypes.bool
+    isGridMounted: PropTypes.bool,
+    scrollThrottleWait: PropTypes.number
   },
 
   getDefaultProps() {
@@ -75,7 +77,8 @@ const Canvas = createReactClass({
       rowRenderer: Row,
       onRows: () => { },
       selectedRows: [],
-      rowScrollTimeout: 0
+      rowScrollTimeout: 0,
+      scrollThrottleWait: 200
     };
   },
 
@@ -337,7 +340,7 @@ const Canvas = createReactClass({
       <div
         ref={(div) => {this.div = div;}}
         style={style}
-        onScroll={this.onScroll}
+        onScroll={throttleEventHandler(this.onScroll, this.props.scrollThrottleWait)}
         className={joinClasses('react-grid-Canvas', this.props.className, { opaque: this.props.cellMetaData.selected && this.props.cellMetaData.selected.active }) }>
         {isGridMounted && <RowsContainer
           width={this.props.width}
