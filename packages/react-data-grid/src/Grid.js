@@ -63,7 +63,8 @@ const Grid = createReactClass({
     rowGroupRenderer: PropTypes.func,
     overScan: PropTypes.object,
     disabledRowsKeys: PropTypes.array,
-    isGridMounted: PropTypes.bool
+    isGridMounted: PropTypes.bool,
+    scrollThrottleWait: PropTypes.number
   },
 
   mixins: [
@@ -145,7 +146,8 @@ const Grid = createReactClass({
                   rowGroupRenderer={this.props.rowGroupRenderer}
                   overScan={this.props.overScan}
                   disabledRowsKeys={this.props.disabledRowsKeys}
-                  isGridMounted={this.props.isGridMounted} />
+                  isGridMounted={this.props.isGridMounted}
+                  scrollThrottleWait={this.props.scrollThrottleWait}/>
             </div>
         :
             <div ref={(node) => { this.emptyView = node; } } className="react-grid-Empty">

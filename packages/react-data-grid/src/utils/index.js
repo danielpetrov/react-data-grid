@@ -8,6 +8,7 @@ module.exports = {
   getMixedTypeValueRetriever: require('./mixedTypeValueRetriever'),
   isColumnsImmutable: require('./isColumnsImmutable'),
   isImmutableMap: require('./isImmutableMap'),
+  eventHocs: require('./eventHocs'),
   last: (arrayOrList) => {
     if (arrayOrList == null) {
       throw new Error('arrayOrCollection is null');
