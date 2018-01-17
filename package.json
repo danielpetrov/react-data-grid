@@ -32,6 +32,7 @@
     "es5-shim": "^4.0.3",
     "fbjs": "^0.6.1",
     "fs-extra": "^0.30.0",
+    "lodash": "^4.17.4",
     "object-assign": "^2.0.0",
     "prop-types": "^15.5.10",
     "react-contextmenu": "1.6.2",

@@ -1,4 +1,7 @@
 import { List } from 'immutable';
+import isEqual from 'lodash/isEqual';
+import transform from 'lodash/transform';
+import isObject from 'lodash/isObject';
 
 module.exports = {
   isEmptyArray: require('./isEmptyArray'),
@@ -23,5 +26,15 @@ module.exports = {
     }
 
     throw new Error('Cant get last of: ' + typeof(arrayOrList));
+  },
+  deepDiff: function difference(object1, base1) {
+    function changes(object, base) {
+      return transform(object, function(result, value, key) {
+        if (!isEqual(value, base[key])) {
+          result[key] = (isObject(value) && isObject(base[key])) ? changes(value, base[key]) : value;
+        }
+      });
+    }
+    return changes(object1, base1);
   }
 };
