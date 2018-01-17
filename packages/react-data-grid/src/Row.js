@@ -40,7 +40,8 @@ const Row = createReactClass({
     colDisplayStart: PropTypes.number.isRequired,
     colDisplayEnd: PropTypes.number.isRequired,
     isScrolling: PropTypes.bool.isRequired,
-    isDisabled: PropTypes.bool.isRequired
+    isDisabled: PropTypes.bool.isRequired,
+    columnEquality: PropTypes.func
   },
 
   mixins: [ColumnUtilsMixin],

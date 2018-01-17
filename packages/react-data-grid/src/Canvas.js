@@ -69,7 +69,8 @@ const Canvas = createReactClass({
     isScrolling: PropTypes.bool,
     disabledRowsKeys: PropTypes.array,
     isGridMounted: PropTypes.bool,
-    scrollThrottleWait: PropTypes.number
+    scrollThrottleWait: PropTypes.number,
+    columnEquality: PropTypes.func
   },
 
   getDefaultProps() {
@@ -312,7 +313,8 @@ const Canvas = createReactClass({
             colDisplayStart: this.props.colDisplayStart,
             colDisplayEnd: this.props.colDisplayEnd,
             isScrolling: this.props.isScrolling,
-            isDisabled: this.isRowDisabled(r.row)
+            isDisabled: this.isRowDisabled(r.row),
+            columnEquality: this.props.columnEquality
           }));
 
       this._currentRowsLength = rows.length;
