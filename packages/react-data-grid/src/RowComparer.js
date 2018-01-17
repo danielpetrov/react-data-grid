@@ -19,7 +19,7 @@ function hasRowBeenCopied(props) {
 }
 
 export const shouldRowUpdate = (nextProps, currentProps) => {
-  return !(ColumnMetrics.sameColumns(currentProps.columns, nextProps.columns, ColumnMetrics.sameColumn)) ||
+  return !(ColumnMetrics.sameColumns(currentProps.columns, nextProps.columns, currentProps.columnEquality)) ||
     doesRowContainSelectedCell(currentProps) ||
     doesRowContainSelectedCell(nextProps) ||
     willRowBeDraggedOver(nextProps) ||
@@ -35,6 +35,7 @@ export const shouldRowUpdate = (nextProps, currentProps) => {
     currentProps.expandedRows !== nextProps.expandedRows ||
     currentProps.canDrop !== nextProps.canDrop ||
     currentProps.forceUpdate === true ||
+    currentProps.isDisabled !== nextProps.isDisabled ||
     currentProps.extraClasses !== nextProps.extraClasses;
 };
 
