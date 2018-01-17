@@ -32,6 +32,7 @@ class Header extends React.Component {
     onHeaderDrop: PropTypes.func,
     draggableHeaderCell: PropTypes.func,
     getValidFilterValues: PropTypes.func,
+    columnEquality: PropTypes.func,
     cellMetaData: PropTypes.shape(cellMetaDataShape)
   };
 
@@ -42,7 +43,7 @@ class Header extends React.Component {
   }
 
   shouldComponentUpdate(nextProps: any, nextState: any): boolean {
-    let update =  !(ColumnMetrics.sameColumns(this.props.columnMetrics.columns, nextProps.columnMetrics.columns, ColumnMetrics.sameColumn))
+    let update =  !(ColumnMetrics.sameColumns(this.props.columnMetrics.columns, nextProps.columnMetrics.columns, this.props.columnEquality))
     || this.props.totalWidth !== nextProps.totalWidth
     || (this.props.headerRows.length !== nextProps.headerRows.length)
     || (this.state.resizing !== nextState.resizing)

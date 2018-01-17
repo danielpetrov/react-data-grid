@@ -64,7 +64,8 @@ const Grid = createReactClass({
     overScan: PropTypes.object,
     disabledRowsKeys: PropTypes.array,
     isGridMounted: PropTypes.bool,
-    scrollThrottleWait: PropTypes.number
+    scrollThrottleWait: PropTypes.number,
+    columnEquality: PropTypes.func
   },
 
   mixins: [
@@ -110,6 +111,7 @@ const Grid = createReactClass({
           onScroll={this.onHeaderScroll}
           getValidFilterValues={this.props.getValidFilterValues}
           cellMetaData={this.props.cellMetaData}
+          columnEquality={this.props.columnEquality}
           />
           {this.props.rowsCount >= 1 || (this.props.rowsCount === 0 && !this.props.emptyRowsView) ?
             <div
