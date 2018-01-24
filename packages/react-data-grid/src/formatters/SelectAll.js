@@ -7,18 +7,18 @@ const SelectAll = (props) => {
       <input
         className="react-grid-checkbox"
         type="checkbox"
-        name={props.checkBoxId}
-        id={props.checkBoxId}
+        name={props.id}
+        id={props.id}
         ref={props.inputRef}
         onChange={props.onChange}
       />
-      <label htmlFor={props.checkBoxId} className="react-grid-checkbox-label" />
+      <label htmlFor={props.id} className="react-grid-checkbox-label" />
     </div>
   );
 };
 
 SelectAll.propTypes = {
-  checkBoxId: PropTypes.string,
+  id: PropTypes.string,
   onChange: PropTypes.func,
   inputRef: PropTypes.func
 };
