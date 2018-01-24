@@ -13,6 +13,7 @@ import shallowEqual from 'fbjs/lib/shallowEqual';
 import RowsContainer from './RowsContainer';
 import RowGroup from './RowGroup';
 const isImmutable = require('./utils').isImmutableMap;
+const areArraysEqual = require('./utils').areArraysEqual;
 const { throttleEventHandler } = require('./utils/eventHocs');
 
 const Canvas = createReactClass({
@@ -128,7 +129,8 @@ const Canvas = createReactClass({
       || this.props.colVisibleStart !== nextProps.colVisibleStart
       || this.props.colVisibleEnd !== nextProps.colVisibleEnd
       || !shallowEqual(nextProps.style, this.props.style)
-      || this.props.isScrolling !== nextProps.isScrolling;
+      || this.props.isScrolling !== nextProps.isScrolling
+      || !areArraysEqual(this.props.disabledRowsKeys, nextProps.disabledRowsKeys);
     return shouldUpdate;
   },
 
