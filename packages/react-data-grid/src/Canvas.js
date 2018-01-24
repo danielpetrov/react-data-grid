@@ -131,7 +131,6 @@ const Canvas = createReactClass({
       || !shallowEqual(nextProps.style, this.props.style)
       || this.props.isScrolling !== nextProps.isScrolling
       || !areArraysEqual(this.props.disabledRowsKeys, nextProps.disabledRowsKeys);
-    console.log(shouldUpdate)
     return shouldUpdate;
   },
 
