@@ -125,7 +125,8 @@ const ReactDataGrid = createReactClass({
     enableCellAutoFocus: PropTypes.bool,
     onBeforeEdit: PropTypes.func,
     disabledRowsKeys: PropTypes.array,
-    selectAllRenderer: PropTypes.object
+    selectAllRenderer: PropTypes.object,
+    gridSelector: PropTypes.object
   },
 
   getDefaultProps(): {enableCellSelect: boolean} {
@@ -989,7 +990,12 @@ const ReactDataGrid = createReactClass({
     const checkBoxId = gridName ? `${gridName}-select-all-checkbox` : 'select-all-checkbox';
     if (this.props.rowActionsCell || (props.enableRowSelect && !this.props.rowSelection) || (props.rowSelection && props.rowSelection.showCheckbox !== false)) {
       const SelectAllComponent = this.props.selectAllRenderer || SelectAll;
-      const SelectAllRenderer = <SelectAllComponent checkBoxId={checkBoxId} onChange={this.handleCheckboxChange} inputRef={grid => this.selectAllCheckbox = grid} />;
+      const SelectAllRenderer = (<SelectAllComponent
+        gridSelector={props.gridSelector}
+        checkBoxId={checkBoxId}
+        onChange={this.handleCheckboxChange}
+        inputRef={grid => this.selectAllCheckbox = grid}
+      />);
       let headerRenderer = props.enableRowSelect === 'single' ? null : SelectAllRenderer;
       let Formatter = this.props.rowActionsCell ? this.props.rowActionsCell : CheckboxEditor;
       let selectColumn = {
