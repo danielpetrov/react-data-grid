@@ -149,7 +149,9 @@ const Grid = createReactClass({
                   overScan={this.props.overScan}
                   disabledRowsKeys={this.props.disabledRowsKeys}
                   isGridMounted={this.props.isGridMounted}
-                  scrollThrottleWait={this.props.scrollThrottleWait}/>
+                  scrollThrottleWait={this.props.scrollThrottleWait}
+                  columnEquality={this.props.columnEquality}
+                />
             </div>
         :
             <div ref={(node) => { this.emptyView = node; } } className="react-grid-Empty">

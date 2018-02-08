@@ -988,11 +988,11 @@ const ReactDataGrid = createReactClass({
     let cols = columns.slice(0);
     let unshiftedCols = {};
     const checkBoxId = gridName ? `${gridName}-select-all-checkbox` : 'select-all-checkbox';
-    if (this.props.rowActionsCell || (props.enableRowSelect && !this.props.rowSelection) || (props.rowSelection && props.rowSelection.showCheckbox !== false)) {
+    if ((props.enableRowSelect && !this.props.rowSelection) || (props.rowSelection && props.rowSelection.showCheckbox !== false)) {
       const SelectAllComponent = this.props.selectAllRenderer || SelectAll;
       const SelectAllRenderer = (<SelectAllComponent
         gridSelector={props.gridSelector}
-        checkBoxId={checkBoxId}
+        id={checkBoxId}
         onChange={this.handleCheckboxChange}
         inputRef={grid => this.selectAllCheckbox = grid}
       />);

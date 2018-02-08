@@ -13,6 +13,7 @@ import shallowEqual from 'fbjs/lib/shallowEqual';
 import RowsContainer from './RowsContainer';
 import RowGroup from './RowGroup';
 const isImmutable = require('./utils').isImmutableMap;
+const areArraysEqual = require('./utils').areArraysEqual;
 const { throttleEventHandler } = require('./utils/eventHocs');
 
 const Canvas = createReactClass({
@@ -69,7 +70,8 @@ const Canvas = createReactClass({
     isScrolling: PropTypes.bool,
     disabledRowsKeys: PropTypes.array,
     isGridMounted: PropTypes.bool,
-    scrollThrottleWait: PropTypes.number
+    scrollThrottleWait: PropTypes.number,
+    columnEquality: PropTypes.func
   },
 
   getDefaultProps() {
@@ -127,7 +129,8 @@ const Canvas = createReactClass({
       || this.props.colVisibleStart !== nextProps.colVisibleStart
       || this.props.colVisibleEnd !== nextProps.colVisibleEnd
       || !shallowEqual(nextProps.style, this.props.style)
-      || this.props.isScrolling !== nextProps.isScrolling;
+      || this.props.isScrolling !== nextProps.isScrolling
+      || !areArraysEqual(this.props.disabledRowsKeys, nextProps.disabledRowsKeys);
     return shouldUpdate;
   },
 
@@ -312,7 +315,8 @@ const Canvas = createReactClass({
             colDisplayStart: this.props.colDisplayStart,
             colDisplayEnd: this.props.colDisplayEnd,
             isScrolling: this.props.isScrolling,
-            isDisabled: this.isRowDisabled(r.row)
+            isDisabled: this.isRowDisabled(r.row),
+            columnEquality: this.props.columnEquality
           }));
 
       this._currentRowsLength = rows.length;

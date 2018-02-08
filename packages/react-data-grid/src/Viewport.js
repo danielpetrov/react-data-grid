@@ -45,7 +45,8 @@ const Viewport = createReactClass({
     rowGroupRenderer: PropTypes.func,
     disabledRowsKeys: PropTypes.array,
     isGridMounted: PropTypes.bool,
-    scrollThrottleWait: PropTypes.number
+    scrollThrottleWait: PropTypes.number,
+    columnEquality: PropTypes.func
   },
 
   onScroll(scroll: {scrollTop: number; scrollLeft: number}) {
@@ -117,6 +118,7 @@ const Viewport = createReactClass({
           disabledRowsKeys={this.props.disabledRowsKeys}
           isGridMounted={this.props.isGridMounted}
           scrollThrottleWait={this.props.scrollThrottleWait}
+          columnEquality={this.props.columnEquality}
         />
       </div>
     );
