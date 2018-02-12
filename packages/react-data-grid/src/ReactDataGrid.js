@@ -235,7 +235,7 @@ class ReactDataGrid extends React.Component {
 
   metricsUpdated = () => {
     let columnMetrics = this.createColumnMetrics();
-    this.setState({columnMetrics});
+    this.setState({ columnMetrics, isGridMounted: true });
   };
 
   createColumnMetrics = (props = this.props) => {
