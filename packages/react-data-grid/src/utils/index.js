@@ -37,7 +37,7 @@ module.exports = {
     }
     return changes(object1, base1);
   },
-  areArraysEqual: (arr1, arr2) => {
+  areArraysEqual: (arr1 = [], arr2 = []) => {
     if (arr1.length !== arr2.length) {
       return false;
     }
