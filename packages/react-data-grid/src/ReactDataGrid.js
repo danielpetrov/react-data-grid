@@ -1,5 +1,6 @@
 const React                 = require('react');
 import PropTypes from 'prop-types';
+import ResizeObserver from 'resize-observer-polyfill';
 const BaseGrid              = require('./Grid');
 const CheckboxEditor        = require('./editors/CheckboxEditor');
 const RowUtils = require('./RowUtils');
@@ -167,17 +168,16 @@ class ReactDataGrid extends React.Component {
   }
 
   componentDidMount() {
-    if (window.addEventListener) {
-      window.addEventListener('resize', this.metricsUpdated);
-    } else {
-      window.attachEvent('resize', this.metricsUpdated);
-    }
+    this.containerResizeObserver =  new ResizeObserver(this.metricsUpdated);
+
+    this.containerResizeObserver.observe(this.grid.parentElement);
+
     this.metricsUpdated();
   }
 
   componentWillUnmount() {
     this._mounted = false;
-    window.removeEventListener('resize', this.metricsUpdated);
+    this.containerResizeObserver.disconnect();
   }
 
   componentWillReceiveProps(nextProps) {
