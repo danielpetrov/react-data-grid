@@ -1,6 +1,6 @@
 {
   "name": "react-data-grid-extended",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Data grid for React",
   "main": "packages/react-data-grid/dist/react-data-grid.js",
   "scripts": {
@@ -97,6 +97,7 @@
     "react-docgen": "^2.8.2",
     "react-dom": "^15.6.2",
     "react-test-renderer": "^15.6.2",
+    "resize-observer-polyfill": "^1.5.0",
     "rewire": "^2.1.3",
     "rewire-webpack": "^1.0.0",
     "run-sequence": "^1.2.2",
