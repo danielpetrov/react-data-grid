@@ -63,6 +63,7 @@ class Grid extends React.Component {
     disabledRowsKeys: PropTypes.array,
     isGridMounted: PropTypes.bool,
     scrollThrottleWait: PropTypes.number,
+    gridSelector: PropTypes.object,
     columnEquality: PropTypes.func
   };
 
@@ -181,6 +182,7 @@ class Grid extends React.Component {
                   rowSelection={this.props.rowSelection}
                   getSubRowDetails={this.props.getSubRowDetails}
                   rowGroupRenderer={this.props.rowGroupRenderer}
+                  gridSelector={this.props.gridSelector}
                   overScan={this.props.overScan}
                   disabledRowsKeys={this.props.disabledRowsKeys}
                   isGridMounted={this.props.isGridMounted}
