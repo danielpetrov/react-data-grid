@@ -69,6 +69,7 @@ class Canvas extends React.Component {
     disabledRowsKeys: PropTypes.array,
     isGridMounted: PropTypes.bool,
     scrollThrottleWait: PropTypes.number,
+    gridSelector: PropTypes.object,
     columnEquality: PropTypes.func
   };
 
@@ -289,6 +290,8 @@ class Canvas extends React.Component {
         {...props}
         {...row.__metaData}
         name={row.name}
+        gridSelector={this.props.gridSelector}
+        rowSelection={this.props.rowSelection}
         renderer={this.props.rowGroupRenderer} />);
     }
     let RowsRenderer = this.props.rowRenderer;
