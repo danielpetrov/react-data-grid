@@ -148,14 +148,26 @@ class Viewport extends React.Component {
       this.props.minHeight !== nextProps.minHeight) {
       const newState = getGridState(nextProps);
       this.updateScroll(
-        newState.scrollTop,
-        newState.scrollLeft,
+        this.state.scrollTop,
+        this.state.scrollLeft,
         newState.height,
         nextProps.rowHeight,
         nextProps.rowsCount
       );
     } else if (ColumnUtils.getSize(this.props.columnMetrics.columns) !== ColumnUtils.getSize(nextProps.columnMetrics.columns)) {
-      this.setState(getGridState(nextProps));
+      this.resetScrollStateAfterDelay();
+
+      this.setState(
+        getNextScrollState(
+          nextProps,
+          this.getDOMNodeOffsetWidth,
+          this.state.scrollTop,
+          this.state.scrollLeft,
+          this.state.height,
+          nextProps.rowHeight,
+          nextProps.rowsCount
+        )
+      );
     } else if (this.props.rowsCount !== nextProps.rowsCount) {
       this.updateScroll(
         this.state.scrollTop,
