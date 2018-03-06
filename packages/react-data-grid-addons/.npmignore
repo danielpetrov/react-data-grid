@@ -1,4 +1,5 @@
 .npmrc
+.src
 secure-file
 npm-debug.log
 lerna-debug.log
