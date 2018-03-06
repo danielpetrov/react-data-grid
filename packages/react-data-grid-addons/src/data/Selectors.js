@@ -16,11 +16,12 @@ const getFilteredRows = createSelector([getFilters, getInputRows], (filters, row
 
 const getSortColumn = state => state.sortColumn;
 const getSortDirection = state => state.sortDirection;
-const getSortedRows = createSelector([getFilteredRows, getSortColumn, getSortDirection], (rows, sortColumn, sortDirection) => {
+const getSortComparator = state => state.sortComparator;
+const getSortedRows = createSelector([getFilteredRows, getSortColumn, getSortDirection, getSortComparator], (rows, sortColumn, sortDirection, sortComparator) => {
   if (!sortDirection && !sortColumn) {
     return rows;
   }
-  return sortRows(rows, sortColumn, sortDirection);
+  return sortRows(rows, sortColumn, sortDirection, sortComparator);
 });
 
 const getGroupedColumns = (state) => state.groupBy;
