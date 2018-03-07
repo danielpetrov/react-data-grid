@@ -1,7 +1,8 @@
 {
   "name": "react-data-grid-addons-extended",
-  "version": "3.0.12",
+  "version": "3.0.13",
   "description": "A set of addons for react-data-grid... Extended",
+  "main": "dist/react-data-grid-addons.js",
   "scripts": {
     "beforepublish": "node ../../ci/publish/replacePackageEntry react-data-grid-addons true",
     "postpublish": "node ../../ci/publish/replacePackageEntry react-data-grid-addons",
