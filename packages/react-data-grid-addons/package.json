@@ -1,6 +1,6 @@
 {
   "name": "react-data-grid-addons-extended",
-  "version": "3.0.13",
+  "version": "0.3.0",
   "description": "A set of addons for react-data-grid... Extended",
   "main": "dist/react-data-grid-addons.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "author": "Tick42",
   "license": "MIT",
   "dependencies": {
-    "react-data-grid": "^3.0.11"
+    "react-data-grid-extended": "^0.3.0"
   },
   "devDependencies": {
     "jquery": "^2.1.1",
