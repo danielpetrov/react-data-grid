@@ -421,6 +421,11 @@ class ReactDataGrid extends React.Component {
       document.activeElement.classList.contains('react-grid-Cell');
   };
 
+  isExternalEditMode = () => {
+    return document.activeElement && document.activeElement.classList &&
+      document.activeElement.classList.contains('editor-main');
+  };
+
   isFocusedOnTable = () => {
     const domNode = this.getDataGridDOMNode();
     return domNode && domNode.contains(document.activeElement);
@@ -489,6 +494,11 @@ class ReactDataGrid extends React.Component {
         this.moveSelectedCell(e, rowIdx === -1 ? 1 : 0, shift ? this.getNbrColumns() : 1);
         return;
       }
+
+      if (this.isExternalEditMode()) {
+        this.moveSelectedCell(e, 0, e.shiftKey ? -1 : 1);
+        return;
+      }
       // otherwise, there is a selected cell in the table already, and
       // we want to trigger it to focus - setting selected in state will update
       // the cell props, and checkFocus will be called
@@ -501,7 +511,11 @@ class ReactDataGrid extends React.Component {
   };
 
   onPressEnter = (e: SyntheticKeyboardEvent) => {
-    this.setActive(e.key);
+    if (this.isExternalEditMode()) {
+      this.moveSelectedCell(e, 1, 0);
+    } else {
+      this.setActive(e.key);
+    }
   };
 
   onPressDelete = (e: SyntheticKeyboardEvent) => {
