@@ -346,9 +346,11 @@ class ReactDataGrid extends React.Component {
   onSelect = (selected: SelectedType) => {
     if (this.state.selected.rowIdx !== selected.rowIdx
       || this.state.selected.idx !== selected.idx
-      || this.state.selected.active === false) {
+      || this.state.selected.active === false
+      || this.isExternalEditMode()) {
       let idx = selected.idx;
       let rowIdx = selected.rowIdx;
+
       if (this.isCellWithinBounds(selected)) {
         const oldSelection = this.state.selected;
         this.setState({selected: selected}, () => {
@@ -512,7 +514,7 @@ class ReactDataGrid extends React.Component {
 
   onPressEnter = (e: SyntheticKeyboardEvent) => {
     if (this.isExternalEditMode()) {
-      this.moveSelectedCell(e, 1, 0);
+      this.moveSelectedCell(e, (e.shiftKey ? -1 : 1), 0);
     } else {
       this.setActive(e.key);
     }
@@ -990,6 +992,10 @@ class ReactDataGrid extends React.Component {
       rowIdx = this.state.selected.rowIdx + rowDelta;
       idx = this.state.selected.idx + cellDelta;
     }
+    if (this.isExternalEditMode() && rowIdx >= this.props.rowsCount) {
+      rowIdx = this.props.rowsCount - 1;
+    }
+
     this.scrollToColumn(idx);
     this.onSelect({ idx: idx, rowIdx: rowIdx });
   };
