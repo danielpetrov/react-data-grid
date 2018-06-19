@@ -985,12 +985,31 @@ class ReactDataGrid extends React.Component {
     e.preventDefault();
     let rowIdx;
     let idx;
+    let newCellDelta
     const { cellNavigationMode } = this.props;
+
+    const nextRow = this.props.rowGetter(this.state.selected.rowIdx + rowDelta);
+
+    if (nextRow && nextRow.__metaData) {
+      const element = rowDelta === -1
+        ? e.target.parentElement.previousSibling
+        : rowDelta === 1
+          ? e.target.parentElement.nextSibling
+          : undefined;
+
+      newCellDelta = 0
+      if (element) {
+        element.firstChild.focus();
+      }
+    } else {
+      newCellDelta = cellDelta
+    }
+
     if (cellNavigationMode !== 'none') {
-      ({idx, rowIdx} = this.calculateNextSelectionPosition(cellNavigationMode, cellDelta, rowDelta));
+      ({ idx, rowIdx } = this.calculateNextSelectionPosition(cellNavigationMode, newCellDelta, rowDelta));
     } else {
       rowIdx = this.state.selected.rowIdx + rowDelta;
-      idx = this.state.selected.idx + cellDelta;
+      idx = this.state.selected.idx + newCellDelta;
     }
     if (this.isExternalEditMode() && rowIdx >= this.props.rowsCount) {
       rowIdx = this.props.rowsCount - 1;
