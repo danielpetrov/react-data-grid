@@ -32,6 +32,33 @@ class RowGroup extends Component {
     }
   }
 
+  onKeyDown = e => {
+    e.preventDefault();
+    if (e.key === 'ArrowLeft') {
+      this.onRowExpandToggle(false);
+    }
+    if (e.key === 'ArrowRight') {
+      this.onRowExpandToggle(true);
+    }
+    if (e.key === 'Enter') {
+      this.onRowExpandToggle(!this.props.isExpanded);
+    }
+    if (e.key === 'ArrowUp') {
+      const previousElement = e.target.parentElement.previousSibling;
+
+      if (previousElement) {
+        previousElement.firstChild.focus();
+      }
+    }
+    if (e.key === 'ArrowDown') {
+      const nextElement = e.target.parentElement.nextSibling;
+
+      if (nextElement) {
+        nextElement.firstChild.focus();
+      }
+    }
+  }
+
   render() {
     let lastColumn = utils.last(this.props.columns);
 
@@ -39,7 +66,7 @@ class RowGroup extends Component {
 
     return (
       <div style={style} className="react-grid-row-group">
-         <this.props.renderer ref={(node) => {this.rowGroupRenderer = node; }} {...this.props} onRowExpandClick={this.onRowExpandClick} onRowExpandToggle={this.onRowExpandToggle}/>
+         <this.props.renderer ref={(node) => {this.rowGroupRenderer = node; }} {...this.props} onRowExpandClick={this.onRowExpandClick} onRowExpandToggle={this.onRowExpandToggle} onKeyDown={this.onKeyDown}/>
       </div>
     );
   }
@@ -81,19 +108,8 @@ const  DefaultRowGroupRenderer = (props) => {
     paddingLeft: '5px'
   };
 
-  let onKeyDown = (e) => {
-    if (e.key === 'ArrowLeft') {
-      props.onRowExpandToggle(false);
-    }
-    if (e.key === 'ArrowRight') {
-      props.onRowExpandToggle(true);
-    }
-    if (e.key === 'Enter') {
-      props.onRowExpandToggle(!props.isExpanded);
-    }
-  };
   return (
-    <div style={style} onKeyDown={onKeyDown} tabIndex={0}>
+    <div style={style} onKeyDown={props.onKeyDown} tabIndex={0}>
       <span className="row-expand-icon" style={{float: 'left', marginLeft: marginLeft, cursor: 'pointer'}} onClick={props.onRowExpandClick} >{props.isExpanded ? String.fromCharCode('9660') : String.fromCharCode('9658')}</span>
       <strong>{props.columnGroupName}: {props.name}</strong>
     </div>
@@ -103,6 +119,7 @@ const  DefaultRowGroupRenderer = (props) => {
 DefaultRowGroupRenderer.propTypes = {
   onRowExpandClick: PropTypes.func.isRequired,
   onRowExpandToggle: PropTypes.func.isRequired,
+  onKeyDown: PropTypes.func.isRequired,
   isExpanded: PropTypes.bool.isRequired,
   treeDepth: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
