@@ -43,18 +43,19 @@ class RowGroup extends Component {
     if (e.key === 'Enter') {
       this.onRowExpandToggle(!this.props.isExpanded);
     }
+
     if (e.key === 'ArrowUp') {
       const previousElement = e.target.parentElement.previousSibling;
 
-      if (previousElement) {
-        previousElement.firstChild.focus();
+      if (previousElement && previousElement.classList.contains('react-grid-Row')) {
+        previousElement.querySelector('.react-grid-Cell:not(:empty)').focus();
       }
     }
     if (e.key === 'ArrowDown') {
       const nextElement = e.target.parentElement.nextSibling;
 
-      if (nextElement) {
-        nextElement.firstChild.focus();
+      if (nextElement && nextElement.classList.contains('react-grid-Row')) {
+        nextElement.querySelector('.react-grid-Cell:not(:empty)').focus();
       }
     }
   }
