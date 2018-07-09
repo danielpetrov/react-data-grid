@@ -213,7 +213,7 @@ class Row extends React.Component {
 
     let cells = this.getCells();
     return (
-      <div {...this.getKnownDivProps() } className={className} style={style} onDragEnter={this.handleDragEnter} >
+      <div {...this.getKnownDivProps() } data-row-id={this.props.idx} className={className} style={style} onDragEnter={this.handleDragEnter} >
         {
           React.isValidElement(this.props.row) ?
             this.props.row : cells

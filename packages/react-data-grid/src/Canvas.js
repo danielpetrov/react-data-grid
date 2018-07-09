@@ -367,12 +367,13 @@ class Canvas extends React.Component {
       width: this.props.totalWidth,
       height: this.props.height
     };
+    const skipThrottle = this.props.cellMetaData.isScrollingVerticallyWithKeyboard || this.props.cellMetaData.isScrollingHorizontallyWithKeyboard;
 
     return (
       <div
         ref={(div) => { this.canvas = div; }}
         style={style}
-        onScroll={throttleEventHandler(this.onScroll, this.props.scrollThrottleWait)}
+        onScroll={skipThrottle ? this.onScroll : throttleEventHandler(this.onScroll, this.props.scrollThrottleWait)}
         className={joinClasses('react-grid-Canvas', this.props.className, { opaque: this.props.cellMetaData.selected && this.props.cellMetaData.selected.active }) }>
         {isGridMounted && <RowsContainer
           width={this.props.width}

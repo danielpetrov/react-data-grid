@@ -101,6 +101,7 @@ class Cell extends React.Component {
       || this.props.expandableOptions !== nextProps.expandableOptions
       || this.hasChangedDependentValues(nextProps)
       || this.props.column.locked !== nextProps.column.locked;
+
     return shouldUpdate;
   }
 
@@ -504,6 +505,7 @@ class Cell extends React.Component {
     } else {
       CellContent = <SimpleCellFormatter value={this.props.value} />;
     }
+
     let isExpandCell = this.props.expandableOptions ? this.props.expandableOptions.field === this.props.column.key : false;
     let treeDepth = this.props.expandableOptions ? this.props.expandableOptions.treeDepth : 0;
     let marginLeft = this.props.expandableOptions && isExpandCell ? (this.props.expandableOptions.treeDepth * 30) : 0;

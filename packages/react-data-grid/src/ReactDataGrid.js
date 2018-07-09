@@ -985,24 +985,20 @@ class ReactDataGrid extends React.Component {
     e.preventDefault();
     let rowIdx;
     let idx;
-    let newCellDelta
+    let newCellDelta;
     const { cellNavigationMode } = this.props;
 
     const nextRow = this.props.rowGetter(this.state.selected.rowIdx + rowDelta);
 
     if (nextRow && nextRow.__metaData) {
-      const element = rowDelta === -1
-        ? e.target.parentElement.previousSibling
-        : rowDelta === 1
-          ? e.target.parentElement.nextSibling
-          : undefined;
+      const element = document.querySelector('.react-grid-Canvas').querySelector(`[data-row-id='${this.state.selected.rowIdx + rowDelta}']`);
 
-      newCellDelta = 0
-      if (element) {
+      newCellDelta = 0;
+      if (element && element.classList.contains('react-grid-row-group')) {
         element.firstChild.focus();
       }
     } else {
-      newCellDelta = cellDelta
+      newCellDelta = cellDelta;
     }
 
     if (cellNavigationMode !== 'none') {
@@ -1016,6 +1012,7 @@ class ReactDataGrid extends React.Component {
     }
 
     this.scrollToColumn(idx);
+    this.scrollToRow(rowIdx);
     this.onSelect({ idx: idx, rowIdx: rowIdx });
   };
 
@@ -1119,6 +1116,24 @@ class ReactDataGrid extends React.Component {
             let scrollAmount =  scrollRight - canvas.clientWidth;
             canvas.scrollLeft += scrollAmount;
           }
+        }
+      }
+    }
+  };
+
+  scrollToRow = (rowIdx) => {
+    if (this.grid) {
+      let canvas = this.grid.querySelector('.react-grid-Canvas');
+      if (canvas) {
+        const top = this.props.rowHeight * rowIdx;
+
+        const scrollTop = top - canvas.scrollTop;
+        const scrollBottom =  top + this.props.rowHeight - canvas.scrollTop;
+
+        if (scrollTop < 0) {
+          canvas.scrollTop += scrollTop;
+        } else if (scrollBottom > canvas.clientHeight) {
+          canvas.scrollTop += scrollBottom - canvas.clientHeight;
         }
       }
     }
