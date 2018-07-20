@@ -98,7 +98,7 @@ class Cell extends React.Component {
       || this.props.isCellValueChanging(this.props.value, nextProps.value)
       || this.props.forceUpdate === true
       || this.props.className !== nextProps.className
-      || this.props.expandableOptions !== nextProps.expandableOptions
+      || !_.isEqual(this.props.expandableOptions, nextProps.expandableOptions)
       || this.hasChangedDependentValues(nextProps)
       || this.props.column.locked !== nextProps.column.locked;
 
@@ -256,7 +256,8 @@ class Cell extends React.Component {
     if (meta == null) { return false; }
     let nextSelected = nextProps.cellMetaData.selected;
     if (meta.selected && nextSelected) {
-      return this.props.idx === nextSelected.idx || this.props.idx === meta.selected.idx;
+      return (this.props.idx === nextSelected.idx && this.props.rowIdx === nextSelected.rowIdx) ||
+        (this.props.idx === meta.selected.idx && this.props.rowIdx === meta.selected.rowIdx);
     }
 
     return true;
