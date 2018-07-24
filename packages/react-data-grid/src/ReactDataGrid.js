@@ -1017,8 +1017,9 @@ class ReactDataGrid extends React.Component {
   };
 
   getNbrColumns = () => {
-    const {columns, enableRowSelect} = this.props;
-    return enableRowSelect ? columns.length + 1 : columns.length;
+    const {columns, enableRowSelect, rowSelection} = this.props;
+
+    return enableRowSelect || (rowSelection && rowSelection.enableShiftSelect) ? columns.length + 1 : columns.length;
   };
 
   getDataGridDOMNode = () => {
@@ -1274,7 +1275,8 @@ class ReactDataGrid extends React.Component {
       onAddSubRow: this.props.onAddSubRow,
       isScrollingVerticallyWithKeyboard: this.isKeyDown(KeyCodes.DownArrow) || this.isKeyDown(KeyCodes.UpArrow),
       isScrollingHorizontallyWithKeyboard: this.isKeyDown(KeyCodes.LeftArrow) || this.isKeyDown(KeyCodes.RightArrow) || this.isKeyDown(KeyCodes.Tab),
-      enableCellAutoFocus: this.props.enableCellAutoFocus
+      enableCellAutoFocus: this.props.enableCellAutoFocus,
+      isExternalEditMode: this.isExternalEditMode()
     };
 
     let toolbar = this.renderToolbar();

@@ -98,7 +98,7 @@ class Cell extends React.Component {
       || this.props.isCellValueChanging(this.props.value, nextProps.value)
       || this.props.forceUpdate === true
       || this.props.className !== nextProps.className
-      || this.props.expandableOptions !== nextProps.expandableOptions
+      || !_.isEqual(this.props.expandableOptions, nextProps.expandableOptions)
       || this.hasChangedDependentValues(nextProps)
       || this.props.column.locked !== nextProps.column.locked;
 
@@ -256,7 +256,8 @@ class Cell extends React.Component {
     if (meta == null) { return false; }
     let nextSelected = nextProps.cellMetaData.selected;
     if (meta.selected && nextSelected) {
-      return this.props.idx === nextSelected.idx || this.props.idx === meta.selected.idx;
+      return (this.props.idx === nextSelected.idx && this.props.rowIdx === nextSelected.rowIdx) ||
+        (this.props.idx === meta.selected.idx && this.props.rowIdx === meta.selected.rowIdx);
     }
 
     return true;
@@ -396,7 +397,7 @@ class Cell extends React.Component {
       // If the enableCellAutoFocus is set in the ReactDataGrid props, it will allow the cell to take focus when the browser is focused on the body.
       // Otherwise, only focus to the current cell if the currently active node in the document is within the data grid.
       // Meaning focus should not be stolen from elements that the grid doesnt control.
-      const cellAutoFocusEnabled = this.props.cellMetaData && this.props.cellMetaData.enableCellAutoFocus;
+      const cellAutoFocusEnabled = this.props.cellMetaData && (this.props.cellMetaData.enableCellAutoFocus || this.props.cellMetaData.isExternalEditMode);
       let dataGridDOMNode = this.props.cellMetaData && this.props.cellMetaData.getDataGridDOMNode ? this.props.cellMetaData.getDataGridDOMNode() : null;
       if (this.isFocusedOnCell() || (cellAutoFocusEnabled && this.isFocusedOnBody()) || (dataGridDOMNode && dataGridDOMNode.contains(document.activeElement))) {
         let cellDOMNode = this.node;
