@@ -12,6 +12,7 @@ const createObjectWithProperties = require('./createObjectWithProperties');
 import CellAction from './CellAction';
 import CellExpand from './CellExpand';
 import ChildRowDeleteButton from './ChildRowDeleteButton';
+import { isImmutableCollection } from "./utils";
 require('../../../themes/react-data-grid-cell.css');
 
 // The list of the propTypes that we want to include in the Cell div
@@ -85,6 +86,13 @@ class Cell extends React.Component {
   }
 
   shouldComponentUpdate(nextProps: any): boolean {
+    let isRowKeyChanged;
+    if (isImmutableCollection(this.props.rowData)) {
+      isRowKeyChanged = this.props.rowData.get(this.props.cellMetaData.rowKey) !== nextProps.rowData.get(this.props.cellMetaData.rowKey);
+    } else {
+      isRowKeyChanged = this.props.rowData[this.props.cellMetaData.rowKey] !== nextProps.rowData[this.props.cellMetaData.rowKey];
+    }
+
     let shouldUpdate = this.props.column.width !== nextProps.column.width
       || this.props.column.left !== nextProps.column.left
       || this.props.column.cellClass !== nextProps.column.cellClass
@@ -100,7 +108,8 @@ class Cell extends React.Component {
       || this.props.className !== nextProps.className
       || !_.isEqual(this.props.expandableOptions, nextProps.expandableOptions)
       || this.hasChangedDependentValues(nextProps)
-      || this.props.column.locked !== nextProps.column.locked;
+      || this.props.column.locked !== nextProps.column.locked
+      || isRowKeyChanged;
 
     return shouldUpdate;
   }
