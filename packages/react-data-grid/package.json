@@ -1,6 +1,6 @@
 {
   "name": "react-data-grid-extended",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "The grid core... Extended",
   "main": "dist/react-data-grid.js",
   "scripts": {
