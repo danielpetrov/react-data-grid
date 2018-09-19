@@ -1003,6 +1003,14 @@ class ReactDataGrid extends React.Component {
 
     if (cellNavigationMode !== 'none') {
       ({ idx, rowIdx } = this.calculateNextSelectionPosition(cellNavigationMode, newCellDelta, rowDelta));
+
+      // Block going out of row group by horizontal movement at the end of last row or beginning of the first row
+      const nextRowByHorizontalMovement = this.props.rowGetter(rowIdx);
+      if (nextRowByHorizontalMovement && nextRowByHorizontalMovement.__metaData
+        && rowDelta === 0 && cellDelta !== 0 && rowIdx !== this.state.selected.rowIdx) {
+        idx = this.state.selected.idx;
+        rowIdx = this.state.selected.rowIdx;
+      }
     } else {
       rowIdx = this.state.selected.rowIdx + rowDelta;
       idx = this.state.selected.idx + newCellDelta;
