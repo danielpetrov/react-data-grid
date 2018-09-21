@@ -413,12 +413,13 @@ class Cell extends React.Component {
         let cellDOMNode = this.node;
         if (cellDOMNode) {
           cellDOMNode.focus();
-
-          const range = document.createRange();
-          range.selectNodeContents(cellDOMNode);
-          const sel = window.getSelection();
-          sel.removeAllRanges();
-          sel.addRange(range);
+          if (this.props.cellMetaData.shouldChangeBrowserSelection) {
+            const range = document.createRange();
+            range.selectNodeContents(cellDOMNode);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+          }
         }
       }
     }
