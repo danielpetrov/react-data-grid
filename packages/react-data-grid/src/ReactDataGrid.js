@@ -365,6 +365,7 @@ class ReactDataGrid extends React.Component {
         // When it's outside of the grid, set rowIdx anyway
         this.setState({selected: { idx, rowIdx }});
       }
+      this.setState({shouldChangeBrowserSelection: false});
     }
   };
 
@@ -1022,6 +1023,7 @@ class ReactDataGrid extends React.Component {
     this.scrollToColumn(idx);
     this.scrollToRow(rowIdx);
     this.onSelect({ idx: idx, rowIdx: rowIdx });
+    this.setState({shouldChangeBrowserSelection: true});
   };
 
   getNbrColumns = () => {
@@ -1261,6 +1263,7 @@ class ReactDataGrid extends React.Component {
       selected: this.state.selected,
       dragged: this.state.dragged,
       hoveredRowIdx: this.state.hoveredRowIdx,
+      shouldChangeBrowserSelection: this.state.shouldChangeBrowserSelection,
       onCellClick: this.onCellClick,
       onCellFocus: this.onCellFocus,
       onCellContextMenu: this.onCellContextMenu,
