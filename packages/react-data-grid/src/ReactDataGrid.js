@@ -517,6 +517,7 @@ class ReactDataGrid extends React.Component {
     if (this.isExternalEditMode()) {
       this.moveSelectedCell(e, (e.shiftKey ? -1 : 1), 0);
     } else {
+      this.setState({shouldChangeBrowserSelection: true});
       this.setActive(e.key);
     }
   };
